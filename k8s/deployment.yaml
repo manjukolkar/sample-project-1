@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feedback-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feedback
+  template:
+    metadata:
+      labels:
+        app: feedback
+    spec:
+      containers:
+      - name: feedback-container
+        image: yourdockerhub/student-feedback:latest
+        ports:
+        - containerPort: 5000
