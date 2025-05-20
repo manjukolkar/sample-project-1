@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'manjukolkar007/student-feedback'
+        IMAGE_NAME = 'manjukolkar007/student-feedback-form'
         CONTAINER_NAME = 'student-feedback-container'
         PORT = '5000'
     }
