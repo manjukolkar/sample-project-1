@@ -1,12 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        // No specific tools needed for Python
-    }
-
     environment {
-        IMAGE_NAME = 'yourdockerhubusername/student-feedback'
+        IMAGE_NAME = 'manjukolkar007/student-feedback'
         CONTAINER_NAME = 'student-feedback-container'
         PORT = '5000'
     }
@@ -14,7 +10,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/student-feedback-portal.git'
+                git branch: 'main', url: 'https://github.com/manjukolkar/sample-project-1.git'
             }
         }
 
@@ -27,15 +23,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${IMAGE_NAME}:latest ."
-            }
-        }
-
-        stage('Run Container Locally') {
-            steps {
-                sh """
-                docker rm -f ${CONTAINER_NAME} || true
-                docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}:latest
-                """
             }
         }
 
@@ -58,8 +45,8 @@ pipeline {
         stage('Deploy to MicroK8s') {
             steps {
                 sh '''
-                microk8s.kubectl apply -f k8s/deployment.yaml
-                microk8s.kubectl apply -f k8s/service.yaml
+                microk8s kubectl apply -f k8s/deployment.yaml
+                microk8s kubectl apply -f k8s/service.yaml
                 '''
             }
         }
@@ -67,8 +54,7 @@ pipeline {
 
     post {
         always {
-            echo 'Cleaning up...'
-            sh "docker rm -f ${CONTAINER_NAME} || true"
+            echo 'Pipeline completed. No local container cleanup required.'
         }
     }
 }
