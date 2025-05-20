@@ -1,3 +1,11 @@
+from flask import Blueprint, render_template, request
+
+# Define the blueprint before using it
+main = Blueprint('main', __name__)
+
+# This will store all the feedback entries
+feedback_list = []
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -7,7 +15,6 @@ def index():
         phone = request.form.get('phone')
         feedback = request.form.get('feedback')
 
-        # Store feedback as a dictionary for better structure
         feedback_entry = {
             'first_name': first_name,
             'last_name': last_name,
