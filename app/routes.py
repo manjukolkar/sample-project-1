@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, request
 
-# Define the blueprint before using it
+# Define the blueprint first
 main = Blueprint('main', __name__)
 
-# This will store all the feedback entries
 feedback_list = []
 
 @main.route('/', methods=['GET', 'POST'])
