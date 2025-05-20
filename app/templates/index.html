@@ -69,7 +69,7 @@
       background: rgba(255, 255, 255, 0.2);
       padding: 15px;
       border-radius: 8px;
-      max-height: 200px;
+      max-height: 300px;
       overflow-y: auto;
     }
     .feedback-list h2 {
@@ -109,7 +109,10 @@
       <h2>All Feedbacks:</h2>
       {% if feedbacks %}
         {% for fb in feedbacks %}
-          <div class="feedback-item">{{ fb }}</div>
+          <div class="feedback-item">
+            <strong>{{ fb.first_name }} {{ fb.last_name }}</strong> (<em>{{ fb.email }}</em>, {{ fb.phone }})<br>
+            {{ fb.feedback }}
+          </div>
         {% endfor %}
       {% else %}
         <p>No feedback submitted yet.</p>
