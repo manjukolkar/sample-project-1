@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, request
 
-# Define the blueprint first
 main = Blueprint('main', __name__)
 
-feedback_list = []
+feedbacks = []
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,13 +13,15 @@ def index():
         phone = request.form.get('phone')
         feedback = request.form.get('feedback')
 
-        feedback_entry = {
+        # Save feedback
+        feedback_data = {
             'first_name': first_name,
             'last_name': last_name,
             'email': email,
             'phone': phone,
             'feedback': feedback
         }
-        feedback_list.append(feedback_entry)
 
-    return render_template('index.html', feedbacks=feedback_list)
+        feedbacks.append(feedback_data)
+
+    return render_template('index.html', feedbacks=feedbacks)
